@@ -1,3 +1,5 @@
+
+
 from django.http import JsonResponse
 from .utils import carregar_dados, aplicar_filtros, calcular_ranking
 
