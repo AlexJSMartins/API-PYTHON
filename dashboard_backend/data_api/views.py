@@ -41,28 +41,43 @@ def melhor(request):
     # Retornar o resultado
     return JsonResponse({f"melhor_{tipo}": resultado.to_dict(orient="records")})
 
+from django.http import JsonResponse
+
 def ranking(request):
     """
     Endpoint para retornar um ranking completo (não apenas o melhor).
     """
-    tipo = request.GET.get('tipo')
+    tipo = request.GET.get('tipo', '').strip().lower()  # Remove espaços extras e converte para minúsculas
     categoria = request.GET.get('Supercategoria', None)
-    mes = request.GET.get('mes', None)
-    ano = request.GET.get('ano', None)
+    mes = request.GET.get('mes')
+    ano = request.GET.get('ano')
 
-    if tipo:
-        tipo = tipo.lower()  # Converte o tipo para minúsculas
+    # Converter mes e ano para inteiros, se fornecidos
+    try:
+        mes = int(mes) if mes else None
+        ano = int(ano) if ano else None
+    except ValueError:
+        return JsonResponse({"error": "Parâmetro 'mes' ou 'ano' inválido."}, status=400)
 
-    # Validação do parâmetro 'tipo'
+    # Dicionário de tipos válidos
     tipos_validos = {
         "nome do empregado": "Nome do empregado",
         "nome do produto": "Nome do produto",
         "cidade do ponto de venda": "Cidade do ponto de venda",
         "nome do ponto de venda": "Nome do ponto de venda",
     }
+
+    # Se o tipo não for informado, usa um padrão (opcional)
+    if not tipo:
+        tipo = "nome do empregado"
+
+    # Validação do parâmetro 'tipo'
     if tipo not in tipos_validos:
         return JsonResponse(
-            {"error": f"Tipo '{tipo}' inválido. Escolha entre: {', '.join(tipos_validos.keys())}."},
+            {
+                "error": f"Tipo '{tipo}' inválido. Escolha entre: {', '.join(tipos_validos.keys())}.",
+                "tipos_validos": list(tipos_validos.keys()),  # Para ajudar o frontend
+            },
             status=400
         )
 
@@ -74,8 +89,16 @@ def ranking(request):
     coluna_agrupamento = tipos_validos[tipo]
     resultado = calcular_ranking(df, coluna_agrupamento, limite=len(df))
 
-    # Retornar o resultado
-    return JsonResponse({f"ranking_{tipo}": resultado.to_dict(orient="records")})
+    # Retornar o resultado de forma estruturada
+    return JsonResponse(
+        {
+            "sucesso": True,
+            "tipo": tipo,
+            "ranking": resultado.to_dict(orient="records")
+        },
+        json_dumps_params={'ensure_ascii': False}  # Para suportar caracteres especiais
+    )
+
 
 def melhor_vendedor_por_categoria(request):
     """
@@ -216,20 +239,30 @@ def analise_por_cidade(request):
     })
 
 
+from datetime import datetime
+import pandas as pd
+import json
+from django.http import JsonResponse
+
 def analise_por_bandeira(request):
     """
     Retorna uma análise detalhada dos dados de vendas de uma bandeira.
     """
-    bandeira = request.GET.get('bandeira', None)
-    mes = request.GET.get('mes', None)
-    ano = request.GET.get('ano', None)
-
-
+    bandeira = request.GET.get('bandeira')
+    mes = request.GET.get('mes')
+    ano = request.GET.get('ano')
 
     if not bandeira:
         return JsonResponse({"error": "Parâmetro 'bandeira' é obrigatório."}, status=400)
 
-    # Carregar dados e aplicar filtros de mês/ano
+    # Converter mes e ano para inteiro, se fornecidos
+    try:
+        mes = int(mes) if mes else None
+        ano = int(ano) if ano else None
+    except ValueError:
+        return JsonResponse({"error": "Parâmetro 'mes' ou 'ano' inválido."}, status=400)
+
+    # Carregar dados e aplicar filtros
     df = carregar_dados()
     df = aplicar_filtros(df, mes=mes, ano=ano)
 
@@ -240,6 +273,7 @@ def analise_por_bandeira(request):
         return JsonResponse({"error": f"Nenhum dado encontrado para a bandeira '{bandeira}'."}, status=404)
 
     # Total de vendas por mês
+    df_bandeira["Data da pesquisa"] = pd.to_datetime(df_bandeira["Data da pesquisa"])  # Garantir tipo datetime
     vendas_por_mes = df_bandeira.groupby(df_bandeira["Data da pesquisa"].dt.month)["Online"].sum().reset_index()
     vendas_por_mes.columns = ["mes", "vendas_totais"]
 
@@ -266,7 +300,8 @@ def analise_por_bandeira(request):
         "melhor_mes": melhor_mes.to_dict(orient="records"),
         "vendas_por_categoria": vendas_por_categoria.to_dict(orient="records"),
         "produtos_por_categoria": produtos_por_categoria
-    })
+    }, json_dumps_params={'ensure_ascii': False})  # Evita problemas com caracteres especiais
+
 
 
 def melhor_para_cidade_ou_bandeira(request):
