@@ -62,7 +62,7 @@ Python 3.9+
 
 1️⃣ Clone o repositório:
 
-git clone https://github.com/seu-usuario/gestor-analise-vendas-backend.git
+git clone https://github.com/AlexJSMartins/API-PYTHON.git
 
 cd dashboard_backend
 
