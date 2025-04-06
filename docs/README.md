@@ -184,7 +184,7 @@ Esta API fornece endpoints para análise de vendas com base em diversos filtros,
 
 1. Clone o repositório:
 ```sh
-git clone https://github.com/seuusuario/seuprojeto.git
+git clone https://github.com/AlexJSMartins/API-PYTHON.git
 cd seuprojeto
 ```
 
