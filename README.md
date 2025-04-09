@@ -4,9 +4,6 @@
 🚀 Um sistema robusto para análise de dados de vendas, fornecendo insights detalhados sobre vendedores, produtos, lojas e cidades. Desenvolvido com Django e Django REST Framework, este backend fornece uma API poderosa e estruturada para alimentar dashboards e outras aplicações de análise de dados.
 
 
-
-**--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**
-
 🏆 Sobre o Projeto
 O Gestor de Análise de Vendas foi desenvolvido para processar e analisar dados de vendas de forma eficiente, oferecendo um conjunto de endpoints RESTful para fornecer informações estratégicas.
 
@@ -15,8 +12,6 @@ O Gestor de Análise de Vendas foi desenvolvido para processar e analisar dados 
 🔹 Rankings para identificar os melhores desempenhos.
 🔹 Análise temporal, permitindo insights sobre tendências.
 🔹 Processamento eficiente com Pandas para manipulação de dados.
-
-**--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**
 
 ⚙️ Tecnologias Utilizadas
 
@@ -30,7 +25,6 @@ Pandas para análise de dados 📊
 
 SQLite (pode ser substituído por PostgreSQL) 💾
 
-**--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**
 
 📂 Arquitetura do Projeto
 
@@ -87,42 +81,97 @@ python manage.py runserver
 Agora, a API estará disponível em http://127.0.0.1:8000 🚀
 
 🔗 Endpoints Principais
+Todos os endpoints aceitam parâmetros adicionais opcionais:
+?mes=<número_do_mês>&ano=<ano> para refinar a análise por período.
 
 📊 Rankings de Vendas
 
-GET /api/ranking
+🔝 Ranking Geral de Vendedores
 
-📌 Retorna o ranking dos melhores vendedores, filtrando por categoria e período.
+GET /api/ranking          📌 Retorna o ranking dos melhores vendedores com opção de filtro por mês e ano.
 
-🏪 Análise por Loja
 
-GET /api/analise-por-loja
 
-📌 Traz insights detalhados sobre as vendas de uma loja específica.
+🏙 Ranking por Cidade ou Bandeira
+
+GET /api/ranking-cidade-ou-bandeira?tipo=cidade        📌 Ranking de vendas por cidade.
+
+GET /api/ranking-cidade-ou-bandeira?tipo=bandeira       📌 Ranking de vendas por bandeira.
+
+
+
+🏪 Análises Detalhadas
+
+🧍 Análise por Empregado
+
+GET /api/analise-por-empregado?empregado=nome_completo_do_empregado     📌 Análise detalhada de um vendedor individual.
+
+
+
 
 🏙 Análise por Cidade
 
-GET /api/analise-por-cidade
+GET /api/analise-por-cidade?cidade=nome_da_cidade         📌 Vendas totais e por categoria em uma cidade específica.
 
-📌 Permite verificar o desempenho de vendas em uma cidade.
+
+
+🏬 Análise por Bandeira
+
+GET /api/analise-por-bandeira?bandeira=nome_da_bandeira        📌 Análise de desempenho por bandeira (ex: magazine luiza, lojas americanas...).
+
+
 
 📦 Análise por Produto
 
-GET /api/analise-por-produto
+GET /api/analise-por-produto?produto=nome_do_produto        📌 Informações sobre o produto mais vendido, categorias associadas e lojas.
 
-📌 Exibe informações sobre o produto mais vendido, categorias e lojas.
+
+
+🏆 Melhores Desempenhos
+
+
+⭐ Melhor Cidade ou Bandeira
+
+GET /api/melhor-cidade-ou-bandeira?tipo=cidade        📌 Retorna a cidade com maior volume de vendas.
+
+GET /api/melhor-cidade-ou-bandeira?tipo=bandeira      📌 Retorna a bandeira com maior volume de vendas.
+
+
+
+🥇 Melhor Geral (Vendedor, Loja, Cidade ou Bandeira)
+
+📌 Mostra o melhor em cada dimensão.
+
+GET /api/melhor?tipo=empregado    📌 Mostra o melhor empregado.
+
+GET /api/melhor?tipo=loja        📌 Mostra a melhor loja.
+
+GET /api/melhor?tipo=cidade do ponto de venda       📌 Mostra a melhor cidade do ponto de venda.
+
+GET /api/melhor?tipo=bandeira            📌 Mostra a melhor bandeira.
+
+
 
 🔍 Para mais detalhes, consulte a pasta docs/!
 
+
 📌 Próximos Passos
+
 🔹 Melhorar a performance das consultas.
+
 🔹 Implementar autenticação e controle de acesso.
+
 🔹 Criar testes automatizados para os endpoints.
+
 🔹 Adicionar novos filtros e métricas.
 
+
 👨‍💻 Autor
+
 **Alex Soares**
+
 📧 Email: alexsoares848@gmail.com
+
 🌐 LinkedIn: linkedin.com/in/alexjsmartins
 
 Se gostou do projeto, deixe uma ⭐ no repositório! 🚀🔥
