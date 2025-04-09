@@ -170,6 +170,8 @@ GET /api/melhor?tipo=bandeira            📌 Mostra a melhor bandeira.
 
 **Alex Soares**
 
+📱 (17) 99109-3927
+
 📧 Email: alexsoares848@gmail.com
 
 🌐 LinkedIn: linkedin.com/in/alexjsmartins
