@@ -85,57 +85,90 @@ Todos os endpoints aceitam parâmetros adicionais opcionais:
 ?mes=<número_do_mês>&ano=<ano> para refinar a análise por período.
 
 📊 Rankings de Vendas
+
 🔝 Ranking Geral de Vendedores
+
 GET /api/ranking
+
 📌 Retorna o ranking dos melhores vendedores com opção de filtro por mês e ano.
 
 🏙 Ranking por Cidade ou Bandeira
+
 GET /api/ranking-cidade-ou-bandeira?tipo=cidade
+
 GET /api/ranking-cidade-ou-bandeira?tipo=bandeira
+
 📌 Ranking de vendas por cidade ou por bandeira de loja.
 
 🏪 Análises Detalhadas
+
 🧍 Análise por Empregado
+
 GET /api/analise-por-empregado?empregado=nome_completo_do_empregado
+
 📌 Análise detalhada de um vendedor individual.
 
 
 🏙 Análise por Cidade
+
 GET /api/analise-por-cidade?cidade=nome_da_cidade
+
 📌 Vendas totais e por categoria em uma cidade específica.
 
 🏬 Análise por Bandeira
+
 GET /api/analise-por-bandeira?bandeira=nome_da_bandeira
+
 📌 Análise de desempenho por bandeira (ex: magazine luiza, lojas americanas...).
 
 📦 Análise por Produto
+
 GET /api/analise-por-produto?produto=nome_do_produto
+
 📌 Informações sobre o produto mais vendido, categorias associadas e lojas.
 
 🏆 Melhores Desempenhos
+
 ⭐ Melhor Cidade ou Bandeira
+
 GET /api/melhor-cidade-ou-bandeira?tipo=cidade
+
 GET /api/melhor-cidade-ou-bandeira?tipo=bandeira
+
 📌 Retorna a cidade ou bandeira com maior volume de vendas.
 
 🥇 Melhor Geral (Vendedor, Loja, Cidade ou Bandeira)
+
 GET /api/melhor?tipo=empregado
+
 GET /api/melhor?tipo=loja
+
 GET /api/melhor?tipo=cidade do ponto de venda
+
 GET /api/melhor?tipo=bandeira
+
 📌 Mostra o melhor em cada dimensão.
 
 🔍 Para mais detalhes, consulte a pasta docs/!
 
+
 📌 Próximos Passos
+
 🔹 Melhorar a performance das consultas.
+
 🔹 Implementar autenticação e controle de acesso.
+
 🔹 Criar testes automatizados para os endpoints.
+
 🔹 Adicionar novos filtros e métricas.
 
+
 👨‍💻 Autor
+
 **Alex Soares**
+
 📧 Email: alexsoares848@gmail.com
+
 🌐 LinkedIn: linkedin.com/in/alexjsmartins
 
 Se gostou do projeto, deixe uma ⭐ no repositório! 🚀🔥
