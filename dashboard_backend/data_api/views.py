@@ -3,16 +3,27 @@
 from django.http import JsonResponse
 from .utils import carregar_dados, aplicar_filtros, calcular_ranking
 
+import pandas as pd
+
+
+# Função utilitária para converter parâmetros de ano/mes
+def parse_int_param(param):
+    try:
+        return int(param) if param else None
+    except ValueError:
+        return None
+
+
 def melhor(request):
     """
     Endpoint genérico para os filtros (melhor em diversas categorias).
     """
     # Parâmetros da requisição
-    tipo = request.GET.get('tipo')
-    categoria = request.GET.get('Supercategoria', None)
-    mes = request.GET.get('mes', None)
-    ano = request.GET.get('ano', None)
-    limite = request.GET.get('limite', 1)  # Limite para o ranking (padrão: 1)
+    tipo = request.GET.get('tipo', '').strip().lower()
+    categoria = request.GET.get('categoria') or request.GET.get('Supercategoria')
+    mes = parse_int_param(request.GET.get('mes'))
+    ano = parse_int_param(request.GET.get('ano'))
+    limite = parse_int_param(request.GET.get('limite')) or 1 # Limite para o ranking (padrão: 1)
 
     if tipo:
         tipo = tipo.lower()  # Converte o tipo para minúsculas
@@ -32,7 +43,7 @@ def melhor(request):
 
     # Carregar dados e aplicar filtros
     df = carregar_dados()
-    df = aplicar_filtros(df, categoria, mes, ano)
+    df = aplicar_filtros(df, categoria=categoria, mes=mes, ano=ano)
 
     # Calcular ranking
     coluna_agrupamento = tipos_validos[tipo]
@@ -41,16 +52,15 @@ def melhor(request):
     # Retornar o resultado
     return JsonResponse({f"melhor_{tipo}": resultado.to_dict(orient="records")})
 
-from django.http import JsonResponse
 
 def ranking(request):
     """
     Endpoint para retornar um ranking completo (não apenas o melhor).
     """
     tipo = request.GET.get('tipo', '').strip().lower()  # Remove espaços extras e converte para minúsculas
-    categoria = request.GET.get('Supercategoria', None)
-    mes = request.GET.get('mes')
-    ano = request.GET.get('ano')
+    categoria = request.GET.get('categoria') or request.GET.get('Supercategoria')
+    mes = parse_int_param(request.GET.get('mes'))
+    ano = parse_int_param(request.GET.get('ano'))
 
     # Converter mes e ano para inteiros, se fornecidos
     try:
@@ -83,7 +93,7 @@ def ranking(request):
 
     # Carregar dados e aplicar filtros
     df = carregar_dados()
-    df = aplicar_filtros(df, categoria, mes, ano)
+    df = aplicar_filtros(df, categoria=categoria, mes=mes, ano=ano)
 
     # Calcular ranking completo
     coluna_agrupamento = tipos_validos[tipo]
@@ -239,10 +249,9 @@ def analise_por_cidade(request):
     })
 
 
-from datetime import datetime
-import pandas as pd
-import json
-from django.http import JsonResponse
+
+
+
 
 def analise_por_bandeira(request):
     """

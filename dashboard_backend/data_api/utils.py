@@ -1,7 +1,9 @@
+# data_api\utils.py
+
 import pandas as pd
 
 # Caminho do arquivo Excel
-PLANILHA_CAMINHO = "./planilha/VENDAS SEM IMEIS.xlsx"
+PLANILHA_CAMINHO = "./planilha/Vendas.xlsx"
 
 
 def carregar_dados():
