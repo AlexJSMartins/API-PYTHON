@@ -88,66 +88,69 @@ Todos os endpoints aceitam parâmetros adicionais opcionais:
 
 🔝 Ranking Geral de Vendedores
 
-GET /api/ranking
+GET /api/ranking          📌 Retorna o ranking dos melhores vendedores com opção de filtro por mês e ano.
 
-📌 Retorna o ranking dos melhores vendedores com opção de filtro por mês e ano.
+
 
 🏙 Ranking por Cidade ou Bandeira
 
-GET /api/ranking-cidade-ou-bandeira?tipo=cidade
+GET /api/ranking-cidade-ou-bandeira?tipo=cidade        📌 Ranking de vendas por cidade.
 
-GET /api/ranking-cidade-ou-bandeira?tipo=bandeira
+GET /api/ranking-cidade-ou-bandeira?tipo=bandeira       📌 Ranking de vendas por bandeira.
 
-📌 Ranking de vendas por cidade ou por bandeira de loja.
+
 
 🏪 Análises Detalhadas
 
 🧍 Análise por Empregado
 
-GET /api/analise-por-empregado?empregado=nome_completo_do_empregado
+GET /api/analise-por-empregado?empregado=nome_completo_do_empregado     📌 Análise detalhada de um vendedor individual.
 
-📌 Análise detalhada de um vendedor individual.
+
 
 
 🏙 Análise por Cidade
 
-GET /api/analise-por-cidade?cidade=nome_da_cidade
+GET /api/analise-por-cidade?cidade=nome_da_cidade         📌 Vendas totais e por categoria em uma cidade específica.
 
-📌 Vendas totais e por categoria em uma cidade específica.
+
 
 🏬 Análise por Bandeira
 
-GET /api/analise-por-bandeira?bandeira=nome_da_bandeira
+GET /api/analise-por-bandeira?bandeira=nome_da_bandeira        📌 Análise de desempenho por bandeira (ex: magazine luiza, lojas americanas...).
 
-📌 Análise de desempenho por bandeira (ex: magazine luiza, lojas americanas...).
+
 
 📦 Análise por Produto
 
-GET /api/analise-por-produto?produto=nome_do_produto
+GET /api/analise-por-produto?produto=nome_do_produto        📌 Informações sobre o produto mais vendido, categorias associadas e lojas.
 
-📌 Informações sobre o produto mais vendido, categorias associadas e lojas.
+
 
 🏆 Melhores Desempenhos
 
+
 ⭐ Melhor Cidade ou Bandeira
 
-GET /api/melhor-cidade-ou-bandeira?tipo=cidade
+GET /api/melhor-cidade-ou-bandeira?tipo=cidade        📌 Retorna a cidade com maior volume de vendas.
 
-GET /api/melhor-cidade-ou-bandeira?tipo=bandeira
+GET /api/melhor-cidade-ou-bandeira?tipo=bandeira      📌 Retorna a bandeira com maior volume de vendas.
 
-📌 Retorna a cidade ou bandeira com maior volume de vendas.
+
 
 🥇 Melhor Geral (Vendedor, Loja, Cidade ou Bandeira)
 
-GET /api/melhor?tipo=empregado
-
-GET /api/melhor?tipo=loja
-
-GET /api/melhor?tipo=cidade do ponto de venda
-
-GET /api/melhor?tipo=bandeira
-
 📌 Mostra o melhor em cada dimensão.
+
+GET /api/melhor?tipo=empregado    📌 Mostra o melhor empregado.
+
+GET /api/melhor?tipo=loja        📌 Mostra a melhor loja.
+
+GET /api/melhor?tipo=cidade do ponto de venda       📌 Mostra a melhor cidade do ponto de venda.
+
+GET /api/melhor?tipo=bandeira            📌 Mostra a melhor bandeira.
+
+
 
 🔍 Para mais detalhes, consulte a pasta docs/!
 
