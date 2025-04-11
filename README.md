@@ -27,7 +27,7 @@ SQLite (pode ser substituído por PostgreSQL) 💾
 
 📌 ### Frontend (React + Vite) 
 
-Documentação disponível no repositório https://github.com/AlexJSMartins/frontend.git
+Documentação disponível no repositório: https://github.com/AlexJSMartins/frontend.git
 
 
 📂 Arquitetura do Projeto
